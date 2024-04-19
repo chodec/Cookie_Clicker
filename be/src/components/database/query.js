@@ -5,7 +5,7 @@ const insertUser = async (id, nickname, login_date) => {
   const client = new Client({
     user: "postgres",
     host: "localhost",
-    database: "users",
+    database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
   });
@@ -13,7 +13,7 @@ const insertUser = async (id, nickname, login_date) => {
     await client.connect();
     await client.query(
       `INSERT INTO users (id, nickname, login_date) 
-             VALUES ($1, $2, $3, $4)`,
+             VALUES ($1, $2, $3)`,
       [id, nickname, login_date]
     )
     return true
@@ -30,14 +30,14 @@ const getUser = async (id) => {
   const client = new Client({
     user: "postgres",
     host: "localhost",
-    database: "users",
+    database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
   })
   try {
     await client.connect()
     userData = await client.query(
-      `SELECT email, pass, id FROM users 
+      `SELECT nickname, login_date, id FROM users 
               WHERE id=($1)`,
       [id]
     )

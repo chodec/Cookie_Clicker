@@ -3,15 +3,13 @@ const router = express.Router()
 const { v4: uuidv4 } = require('uuid')
 const { insertUser } = require('../../database/query.js')
 
-router.get('/createUser/:nickname', (req, res) => {
+router.post('/createUser/:nickname', (req, res) => {
     const nickname = req.params.nickname
     const id = uuidv4()
-    const date = new Date()
-    const login_date = date.getTime()
+    const login_date = new Date()
     insertUser(id, nickname, login_date).then(result => {
         if(result){
-            console.log(result);
-            res.send(result.rows[0].nickname)
+            console.log(`The user ${nickname}, with the id ${id} was created ${login_date}`)
         }
     }).catch(err => {
         console.log(err)
