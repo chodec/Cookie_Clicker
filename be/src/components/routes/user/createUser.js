@@ -14,7 +14,6 @@ router.post('/createUser/:nickname', (req, res) => {
     }).catch(err => {
         res.send(err)
     })
-
 })
 
 module.exports = router

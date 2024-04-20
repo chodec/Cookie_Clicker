@@ -15,7 +15,6 @@ router.post('/createAutoclicker/:gameStateId/:clickerMame/:stats', (req, res) =>
     }).catch(err => {
         res.send(err)
     })
-
 })
 
 module.exports = router

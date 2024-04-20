@@ -7,7 +7,7 @@ const insertUser = async (id, nickname, login_date) => {
     database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
-  });
+  })
   try {
     await client.connect();
     await client.query(
@@ -78,7 +78,7 @@ const insertGameState = async (id, userId, cookieCount, clickValue, lastUpdate) 
     database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
-  });
+  })
   try {
     await client.connect();
     await client.query(
@@ -102,7 +102,7 @@ const saveGameState = async (id, cookieCount, clickValue, lastUpdate) => {
     database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
-  });
+  })
   try {
     await client.connect();
     await client.query(
@@ -127,7 +127,7 @@ const createAutoClicker = async (id, gameStateId, clickerName, stats) => {
     database: "Cookie-Clicker",
     password: process.env.DB_PASS,
     port: "5432",
-  });
+  })
   try {
     await client.connect();
     await client.query(

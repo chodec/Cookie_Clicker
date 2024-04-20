@@ -11,7 +11,6 @@ router.get('/getUser/:id', (req, res) => {
     }).catch(err => {
         res.send(err)
     })
-
 })
 
 module.exports = router

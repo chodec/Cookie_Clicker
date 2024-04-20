@@ -14,7 +14,6 @@ router.patch('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) 
     }).catch(err => {
         console.log(err)
     })
-
 })
 
 module.exports = router
