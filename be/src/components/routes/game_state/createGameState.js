@@ -6,16 +6,15 @@ const { insertGameState } = require('../../database/query.js')
 router.post('/createGameState/:userId', (req, res) => {
     const id = uuidv4()
     const userId = req.params.userId
-    const autoclickerId = null
     const cookieCount = 0
     const clickValue = 1
     const lastUpdate = new Date()
-    insertGameState(id, userId, autoclickerId, cookieCount, clickValue, lastUpdate).then(result => {
+    insertGameState(id, userId, cookieCount, clickValue, lastUpdate).then(result => {
         if(result){
-            console.log(`The user ${userId}, with the id of state ${id} was created ${lastUpdate}. Cookie count ${cookieCount}, Click value ${clickValue}`)
+            res.send(`The user ${userId}, with the id of state ${id} was created ${lastUpdate}. Cookie count ${cookieCount}, Click value ${clickValue}`)
         }
     }).catch(err => {
-        console.log(err)
+        res.send(err)
     })
 
 })

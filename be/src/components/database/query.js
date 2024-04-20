@@ -68,7 +68,7 @@ const getAllUsers = async () => {
   }
 }
 
-const insertGameState = async (id, userId, autoclickerId, cookieCount, clickValue, lastUpdate) => {
+const insertGameState = async (id, userId, cookieCount, clickValue, lastUpdate) => {
   const client = new Client({
     user: "postgres",
     host: "localhost",
@@ -79,9 +79,9 @@ const insertGameState = async (id, userId, autoclickerId, cookieCount, clickValu
   try {
     await client.connect();
     await client.query(
-      `INSERT INTO game_state (id, user_id, autoclicker_id, cookie_count, click_value, last_update) 
-             VALUES ($1, $2, $3, $4, $5, $6)`,
-      [id, userId, autoclickerId, cookieCount, clickValue, lastUpdate]
+      `INSERT INTO game_state (id, user_id, cookie_count, click_value, last_update) 
+             VALUES ($1, $2, $3, $4, $5)`,
+      [id, userId, cookieCount, clickValue, lastUpdate]
     )
     return true
   } catch (error) {

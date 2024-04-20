@@ -7,7 +7,6 @@ CREATE TABLE users (
 CREATE TABLE game_state (
   id VARCHAR(255) PRIMARY KEY,
   user_id VARCHAR(255) REFERENCES users(id),
-  autoclicker_id VARCHAR(255) NOT NULL,
   cookie_count INT NOT NULL,
   click_value INT NOT NULL,
   last_update DATE NOT NULL
