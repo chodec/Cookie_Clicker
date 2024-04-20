@@ -9,10 +9,10 @@ router.patch('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) 
     const lastUpdate = new Date()
     saveGameState(id, cookieCount, clickValue, lastUpdate).then(result => {
         if(result){
-            console.log(`The game state ${id}, update cookie count to ${cookieCount} and click value to ${clickValue}`)
+            res.send(`The game state ${id}, update cookie count to ${cookieCount} and click value to ${clickValue}`)
         }
     }).catch(err => {
-        console.log(err)
+        res.send(err)
     })
 })
 
