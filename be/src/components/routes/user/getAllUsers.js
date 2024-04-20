@@ -8,7 +8,7 @@ router.get('/getAllUsers', (req, res) => {
             res.send(result.rows)
         }
     }).catch(err => {
-        console.log(err)
+        res.send(err)
     })
 
 })

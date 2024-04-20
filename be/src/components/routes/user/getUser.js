@@ -6,11 +6,10 @@ router.get('/getUser/:id', (req, res) => {
     const id = req.params.id
     getUser(id).then(result => {
         if(result){
-            console.log(result);
             res.send(result.rows[0].nickname)
         }
     }).catch(err => {
-        console.log(err)
+        res.send(err)
     })
 
 })
