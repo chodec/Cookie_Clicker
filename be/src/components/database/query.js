@@ -92,4 +92,29 @@ const insertGameState = async (id, userId, cookieCount, clickValue, lastUpdate) 
   }
 }
 
-module.exports = { insertUser, getUser, getAllUsers, insertGameState }
+const saveGameState = async (id, cookieCount, clickValue, lastUpdate) => {
+  const client = new Client({
+    user: "postgres",
+    host: "localhost",
+    database: "Cookie-Clicker",
+    password: process.env.DB_PASS,
+    port: "5432",
+  });
+  try {
+    await client.connect();
+    await client.query(
+      `UPDATE game_state 
+       SET cookie_count = $1, click_value = $2, last_update = $3 
+       WHERE id = $4`,
+      [cookieCount, clickValue, lastUpdate, id]
+    )
+    return true
+  } catch (error) {
+    console.error(error.stack)
+    return false
+  } finally {
+    await client.end()
+  }
+}
+
+module.exports = { insertUser, getUser, getAllUsers, insertGameState, saveGameState }

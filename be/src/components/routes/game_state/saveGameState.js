@@ -1,20 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const { v4: uuidv4 } = require('uuid')
-const { insertGameState } = require('../../database/query.js')
+const { saveGameState } = require('../../database/query.js')
 
-router.patch('/createGameState/:gameStateId', (req, res) => {
+router.patch('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) => {
     const id = req.params.gameStateId
-    const autoclickerId = null
-    const cookieCount = 0
-    const clickValue = 1
+    const cookieCount = req.params.cookieCount
+    const clickValue = req.params.clickValue
     const lastUpdate = new Date()
-    insertGameState(id, userId, autoclickerId, cookieCount, clickValue, lastUpdate).then(result => {
+    saveGameState(id, cookieCount, clickValue, lastUpdate).then(result => {
         if(result){
-            res.send(`The user ${userId}, with the id of state ${id} was created ${lastUpdate}. Cookie count ${cookieCount}, Click value ${clickValue}`)
+            console.log(`The game state ${id}, update cookie count to ${cookieCount} and click value to ${clickValue}`)
         }
     }).catch(err => {
-        res.send(err)
+        console.log(err)
     })
 
 })
