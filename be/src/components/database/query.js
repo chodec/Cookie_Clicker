@@ -58,7 +58,10 @@ const getAllUsers = async () => {
   try {
     await client.connect()
     userData = await client.query(
-      `SELECT * FROM users`
+      `SELECT u.nickname, gs.cookie_count
+        FROM users u
+        JOIN game_state gs ON u.id = gs.user_id
+        ORDER BY gs.cookie_count DESC`
     )
     return userData
   } catch (error) {
