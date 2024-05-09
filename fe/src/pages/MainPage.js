@@ -8,7 +8,7 @@ const Main = () => {
     return (
         <div>
             <Navbar />
-            <div className="flex flex-row text-center">
+            <div className="flex flex-row">
                 <Cookie />
                 <Display />
                 <Upgrades />
