@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <div>
       <AppBar position="static">
-        <Toolbar className='dark:bg-gray-800'>
+        <Toolbar className='bg-gray-900'>
           <Typography variant="h6">
             Cookie Clicker
           </Typography>

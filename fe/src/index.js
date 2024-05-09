@@ -2,13 +2,13 @@ import React from 'react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Navbar from './components/layout/NavBar'
+import Main from './pages/MainPage'
 
 const rootElement = document.getElementById('root')
 const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
-    <Navbar />
+    <Main />
   </StrictMode>,
 )
