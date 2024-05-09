@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const { v4: uuidv4 } = require('uuid')
 
-const { insertGameState } = require('../../database/query.js')
+const { insertGameState } = require('./be/src/components/database/query.js')
 
-const { validateGameStateCreate } = require('../../schema/validator/validator.js')
+const { validateGameStateCreate } = require('./be/src/components/schema/validator/validator.js')
 
 router.post('/createGameState/:userId', (req, res) => {
     const userId = req.params.userId

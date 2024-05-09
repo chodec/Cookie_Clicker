@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 const { createAutoClicker } = require('../../database/query.js')
 const { validateAutoclicker } = require('../../schema/validator/validator.js')
 
-router.post('/createAutoclicker/:gameStateId/:clickerMame/:stats', (req, res) => {
+router.post('/createAutoclicker/:gameStateId/:clickerName/:stats', (req, res) => {
     const gameStateId = req.params.gameStateId
     const clickerName = req.params.clickerMame
     const stats = req.params.stats
