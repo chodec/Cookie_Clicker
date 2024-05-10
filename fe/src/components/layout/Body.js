@@ -19,6 +19,7 @@ const Body = () => {
         return () => clearInterval(interval)
     }, [])
 
+    //Context obali appku na hiscore, hooky na API
     return (
         <div className="basis-1/2 bg-gray-700 h-screen">
             <div className='h-1/4 border-white border-b-2'>
