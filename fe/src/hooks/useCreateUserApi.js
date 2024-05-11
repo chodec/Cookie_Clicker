@@ -6,28 +6,19 @@ const UseUserCreateState = () => {
     const [error, setError] = useState(null)
     const [userId, setUserId] = useState(null)
 
-    const createUser = (nickname) => { 
+    const createUser = async (nickname) => { 
         setLoading(true)
-        axios.post(`http://localhost:8000/createUser/${nickname}`)
-            .then(userResponse => {
-                const userId = userResponse.data.id
-                console.log(userId)
-                setUserId(userId)
-                axios.post(`http://localhost:8000/createGameState/${userId}`)
-                    .then(gameStateResponse => {
-                        console.log(gameStateResponse.data )
-                    })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            })
-            .then(() => {
-                setLoading(false)
-            })
-            .catch(err => {
-                setError(err.message)
-                setLoading(false)
-            })
+        try {
+            const userResponse = await axios.post(`http://localhost:8000/createUser/${nickname}`)
+            const userId = userResponse.data.id
+            setUserId(userId)
+            await axios.post(`http://localhost:8000/createGameState/${userId}`)
+            setLoading(false)
+            return userId
+        } catch (err) {
+            setError(err.message)
+            setLoading(false)
+        }
     }
 
     return { createUser, loading, error, userId }

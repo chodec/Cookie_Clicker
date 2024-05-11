@@ -1,4 +1,3 @@
-// Upgrades.js
 import React from 'react'
 import cursor from '../../assets/cursor.png'
 import granny from '../../assets/granny.png'
