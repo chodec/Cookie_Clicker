@@ -7,10 +7,8 @@ import UseUserCreateState from '../../hooks/useCreateUserApi.js'
 
 const Body = () => {
     const [placeholder, setPlaceholder] = useState('Enter nickname for register')
-
     const [nickname, setNickname] = useState('')
-    const { createUser } = UseUserCreateState()
-    const { userId } = UseUserCreateState()
+    const { createUser, userId } = UseUserCreateState()
 
     const handleRegisterClick = async () => {
         if (nickname) {

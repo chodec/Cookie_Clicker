@@ -15,7 +15,7 @@ const UseUserCreateState = () => {
                 setUserId(userId)
                 axios.post(`http://localhost:8000/createGameState/${userId}`)
                     .then(gameStateResponse => {
-                        console.log(gameStateResponse.data.id)
+                        console.log(gameStateResponse.data )
                     })
                     .catch(err => {
                         console.error(err)
