@@ -61,7 +61,8 @@ const getAllUsers = async () => {
       `SELECT u.nickname, gs.cookie_count
         FROM users u
         JOIN game_state gs ON u.id = gs.user_id
-        ORDER BY gs.cookie_count DESC`
+        ORDER BY gs.cookie_count DESC
+        LIMIT 10`
     )
     return userData
   } catch (error) {

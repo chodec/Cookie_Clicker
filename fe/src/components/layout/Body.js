@@ -4,13 +4,19 @@ import granny from '../../assets/granny.png'
 import factory from '../../assets/factory.png'
 import UseUserCreateState from '../../hooks/useCreateUserApi.js'
 import { UserContext } from './UserContext.js'
+import useFetchUsers from '../../hooks/useFetchUsers.js'
 
 const Body = () => {
     const [placeholder, setPlaceholder] = useState('Enter nickname for register')
     const [nickname, setNickname] = useState('')
     const { createUser, userId } = UseUserCreateState()
     const { setUserId } = useContext(UserContext)
+    const [showUpgrades, setShowUpgrades] = useState(false)
+    const users = useFetchUsers()
 
+    const handleButtonClick = () => {
+        setShowUpgrades(!showUpgrades)
+    }
     
     const handleRegisterClick = async () => {
         if (nickname) {
@@ -37,12 +43,13 @@ const Body = () => {
 
     //Context obali appku na hiscore, hooky na API
     return (
-            <div className="basis-1/2 bg-gray-700 h-screen">
-                    <div className='h-1/4 border-white border-b-2'>
+            <div className="basis-1/2 bg-gray-700 h-screen p-3">
+                    <div className='h-1/4 border-white border-b-2 mb-4'>
                         <button 
                             className="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                            onClick={ handleButtonClick }
                         >
-                            Show HiScore
+                            { showUpgrades ? 'Show HiScore' : 'Show Upgrades' }
                         </button>
                         <form className="w-full max-w-sm">
                             <div className="flex items-center py-2">
@@ -71,7 +78,7 @@ const Body = () => {
                         </form>
                         {userId && <p className="text-white">User ID: {userId}</p>}
                     </div>
-
+        {showUpgrades ? (
             <div className='h-3/4 text-white'>
                 <div className='flex pb-4'>
                     <p>Clicker boosts: 2</p>
@@ -90,6 +97,28 @@ const Body = () => {
                     <img src={factory} alt="Upgrade 1" className="w-14 h-14" />
                 </div>
             </div>
+        ) : (
+            <div className='h-3/4 text-white'>
+                <table className="table-fixed">
+                    <thead>
+                        <tr>
+                            <th className="w-1/3 text-left">Rank</th>
+                            <th className="w-1/2 text-left">Name</th>
+                            <th className="w-1/2 text-left">Cookies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user, i) => (
+                            <tr key={i}>
+                                <td>#{i + 1}</td>
+                                <td>{user.nickname}</td>
+                                <td>{user.cookie_count}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}  
         </div>
     )
 }
