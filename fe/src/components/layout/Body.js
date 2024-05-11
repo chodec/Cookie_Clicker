@@ -3,10 +3,25 @@ import React, { useState, useEffect } from 'react'
 import cursor from '../../assets/cursor.png'
 import granny from '../../assets/granny.png'
 import factory from '../../assets/factory.png'
+import UseUserCreateState from '../../hooks/useCreateUserApi.js'
 
 const Body = () => {
     const [placeholder, setPlaceholder] = useState('Enter nickname for register')
 
+    const [nickname, setNickname] = useState('');
+    const { createUser } = UseUserCreateState()
+
+    const handleRegisterClick = async () => {
+        if (nickname) {
+            try {
+                const result = await createUser(nickname)
+                console.log(result)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+    
     useEffect(() => {
         const placeholders = ['Enter nickname for register', 'Set ID for save']
         let index = 0
@@ -23,16 +38,32 @@ const Body = () => {
     return (
         <div className="basis-1/2 bg-gray-700 h-screen">
             <div className='h-1/4 border-white border-b-2'>
-                <button class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                <button 
+                    class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                >
                     Show HiScore
                 </button>
                 <form class="w-full max-w-sm">
                     <div class="flex items-center py-2">
-                        <input class="bg-transparent text-white border-none w-full mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder={placeholder} aria-label="Nickname" />
-                        <button class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-1" type="button">
+                        <input 
+                            class="bg-transparent text-white border-none w-full mr-3 py-1 px-2 leading-tight focus:outline-none"
+                            type="text"
+                            placeholder={placeholder}
+                            aria-label="Nickname" 
+                            value={nickname}
+                            onChange={e => setNickname(e.target.value)}
+                        />
+                        <button 
+                            class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-1" 
+                            type="button"
+                            onClick={handleRegisterClick}
+                        >
                             Register
                         </button>
-                        <button class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="button">
+                        <button 
+                            class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" 
+                            type="button"
+                        >
                             Save
                         </button>
                     </div>
