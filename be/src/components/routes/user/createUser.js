@@ -18,7 +18,7 @@ router.post('/createUser/:nickname', (req, res) => {
         insertUser(id, nickname, login_date)
             .then(result => {
                 if (result) {
-                    res.send(`The user ${nickname}, with the ID ${id} was created on ${login_date}`)
+                    res.send({id: id, nickname: nickname, login_date: login_date})
                 }
             })
             .catch(err => {

@@ -4,25 +4,34 @@ import axios from 'axios'
 const UseUserCreateState = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const [userId, setUserId] = useState(null)
 
-    const createUser = async (nickname) => {
+    const createUser = (nickname) => { 
         setLoading(true)
-        try {
-            const userResponse = await axios.post(`http://localhost:8000/createUser/${nickname}`)
-            console.log(userResponse)
-            const userId = userResponse.id
-            console.log(userId)
-            const gameStateResponse = await axios.post(`http://localhost:8000/createGameState/${userId}`)
-
-            setLoading(false)
-            return { user: userResponse.data, gameState: gameStateResponse.data }
-        } catch (err) {
-            setError(err.message)
-            setLoading(false)
-        }
+        axios.post(`http://localhost:8000/createUser/${nickname}`)
+            .then(userResponse => {
+                const userId = userResponse.data.id
+                console.log(userId)
+                setUserId(userId)
+                axios.post(`http://localhost:8000/createGameState/${userId}`)
+                    .then(gameStateResponse => {
+                        console.log(gameStateResponse.data.id)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            })
+            .then(() => {
+                setLoading(false)
+            })
+            .catch(err => {
+                setError(err.message)
+                setLoading(false)
+            })
     }
 
-    return { createUser, loading, error }
+    return { createUser, loading, error, userId }
 }
+
 
 export default UseUserCreateState
