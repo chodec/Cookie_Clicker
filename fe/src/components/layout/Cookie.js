@@ -1,18 +1,15 @@
-import React, { useState, useContext } from 'react'
-import cookie from '../../assets/cookie.png'
+import React, { useContext } from 'react'
+import cookie from '../../assets/Cookie.png'
 import { UserContext } from './UserContext'
 
 const Cookie = () => {
-    const { userId } = useContext(UserContext)
-    const [cookieCount, setCookieCount] = useState(0)
-    
+    const { userId, cookieCount, setCookieCount, cookiesPerClick } = useContext(UserContext)
 
     const handleCookieClick = () => {
-        console.log(userId)
-        if (userId) {
-            setCookieCount(cookieCount + 1)
+        if (userId && typeof cookiesPerClick === 'number') {
+            setCookieCount(prevCount => prevCount + cookiesPerClick)
         }
-    };
+    }
 
     return (
         <div className="basis-1/4 bg-gray-800 flex flex-col h-screen items-center justify-center">

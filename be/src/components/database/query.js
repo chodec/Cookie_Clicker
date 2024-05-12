@@ -145,4 +145,50 @@ const createAutoClicker = async (id, gameStateId, clickerName, stats) => {
   }
 }
 
-module.exports = { insertUser, getUser, getAllUsers, insertGameState, saveGameState, createAutoClicker }
+const getGameState = async (id) => {
+  const client = new Client({
+    user: "postgres",
+    host: "localhost",
+    database: "Cookie-Clicker",
+    password: process.env.DB_PASS,
+    port: "5432",
+  })
+  try {
+    await client.connect()
+    userData = await client.query(
+      `SELECT * FROM game_state 
+              WHERE id=($1)`,
+      [id]
+    )
+    return userData
+  } catch (error) {
+    return error.stack
+  } finally {
+    await client.end()
+  }
+}
+
+const getAutoClicker = async (game_state_id) => {
+  const client = new Client({
+    user: "postgres",
+    host: "localhost",
+    database: "Cookie-Clicker",
+    password: process.env.DB_PASS,
+    port: "5432",
+  })
+  try {
+    await client.connect()
+    userData = await client.query(
+      `SELECT * FROM autoclicker
+              WHERE game_state_id=($1)`,
+      [game_state_id]
+    )
+    return userData
+  } catch (error) {
+    return error.stack
+  } finally {
+    await client.end()
+  }
+}
+
+module.exports = { insertUser, getUser, getAllUsers, insertGameState, saveGameState, createAutoClicker, getGameState, getAutoClicker }

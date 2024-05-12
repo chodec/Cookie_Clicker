@@ -5,7 +5,7 @@ const { saveGameState } = require('../../database/query.js')
 
 const { validateGameStateSave } = require('../../schema/validator/validator.js')
 
-router.patch('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) => {
+router.put('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) => {
     const gameStateId = req.params.gameStateId
     const cookieCount = parseInt(req.params.cookieCount)
     const clickValue = parseFloat(req.params.clickValue)
@@ -17,7 +17,7 @@ router.patch('/saveGameState/:gameStateId/:cookieCount/:clickValue', (req, res) 
         saveGameState(gameStateId, cookieCount, clickValue, lastUpdate)
             .then(result => {
                 if (result) {
-                    res.send(`The game state ${gameStateId} has been updated: cookie count = ${cookieCount}, click value = ${clickValue}`)
+                    res.send({gameStateId: gameStateId, cookieCount: cookieCount, clickValue: clickValue})
                 }
             })
             .catch(err => {

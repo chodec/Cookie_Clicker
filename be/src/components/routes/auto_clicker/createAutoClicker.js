@@ -7,7 +7,7 @@ const { validateAutoclicker } = require('../../schema/validator/validator.js')
 
 router.post('/createAutoclicker/:gameStateId/:clickerName/:stats', (req, res) => {
     const gameStateId = req.params.gameStateId
-    const clickerName = req.params.clickerMame
+    const clickerName = req.params.clickerName
     const stats = req.params.stats
 
     const data = { gameStateId, clickerName, stats}
@@ -17,12 +17,12 @@ router.post('/createAutoclicker/:gameStateId/:clickerName/:stats', (req, res) =>
         createAutoClicker(id, gameStateId, clickerName, stats)
             .then(result => {
                 if (result) {
-                    res.send(`The Game State ${gameStateId} has added this autoclicker ${clickerName}`)
+                    res.send({gameStateId: gameStateId, clickerName: clickerName, stats: stats})
                 }
             })
             .catch(err => {
                 res.send(err)
-            });
+            })
     } else {
         res.status(400).send("Invalid request data")
     }

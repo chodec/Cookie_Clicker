@@ -22,17 +22,17 @@ const gameStateSaveSchema = {
         clickValue: { type: "number", minimum: 0 }
     },
     required: ["gameStateId", "cookieCount", "clickValue"]
-};
+}
 
 const validateGameStateSave = ajv.compile(gameStateSaveSchema)
 
 const gameStateCreateSchema = {
     type: "object",
     properties: {
-        userId: { type: "string" } // Adjust as needed
+        userId: { type: "string" } 
     },
     required: ["userId"]
-};
+}
 
 const validateGameStateCreate = ajv.compile(gameStateCreateSchema)
 
@@ -51,11 +51,31 @@ const validateGetAllUsers = ajv.compile({})
 const userGetSchema = {
     type: "object",
     properties: {
-        id: { type: "string" } // Adjust as needed
+        id: { type: "string" }
     },
     required: ["id"]
-};
+}
 
-const validateUserGet = ajv.compile(userGetSchema);
+const validateUserGet = ajv.compile(userGetSchema)
 
-module.exports = { validateAutoclicker, validateGameStateSave, validateGameStateCreate, validateUserCreate, validateGetAllUsers, validateUserGet }
+const gameStateGetSchema = {
+    type: "object",
+    properties: {
+        id: { type: "string" }
+    },
+    required: ["id"]
+}
+
+const validateGameStateGet = ajv.compile(gameStateGetSchema)
+
+const autoClickerGetSchema = {
+    type: "object",
+    properties: {
+        id: { type: "string" }
+    },
+    required: ["id"]
+}
+
+const validateAutoClickerGet = ajv.compile(autoClickerGetSchema)
+
+module.exports = { validateAutoclicker, validateGameStateSave, validateGameStateCreate, validateUserCreate, validateGetAllUsers, validateUserGet, validateGameStateGet, validateAutoClickerGet }
